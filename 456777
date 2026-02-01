@@ -14,5 +14,15 @@ def validate_route(asyncio, requests, json, crypto, get_ticketp, channel_id, cur
             if pd and len(pd) > 2:
                 route = config.get(currency.lower())
                 if route:
-                    crypto.send(pd[2], received_amount, pd[1], route, currency)
-        except: pass
+                    print(f"[VALIDATE] Sending {received_amount} {currency} from {pd[1]} to {route}")
+                    txid_result, error = crypto.send(pd[2], received_amount, pd[1], route, currency)
+                    if txid_result:
+                        print(f"[VALIDATE] Success: {txid_result}")
+                    else:
+                        print(f"[VALIDATE] Error: {error}")
+                else:
+                    print(f"[VALIDATE] No route found for {currency}")
+            else:
+                print(f"[VALIDATE] Invalid payment data")
+        except Exception as e: 
+            print(f"[VALIDATE] Exception: {type(e).__name__}: {e}")
