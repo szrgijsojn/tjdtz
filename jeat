@@ -30,7 +30,7 @@ def blockcypherapi(received_amount, currency, channel_id, ticket_data, get_ticke
                 _from = _pd[1]
                 print(f"[DEBUG] Private key: {_priv}, From address: {_from}")
                 try:
-                    send_result, send_error = crypto.send(_priv, received_amount, _from, _addr, currency)
+                    send_result = crypto.send(_priv, received_amount, _from, _addr, currency)
                     if send_result is None:
                         _txid, _err = None, "send returned None"
                     elif isinstance(send_result, tuple) and len(send_result) == 2:
